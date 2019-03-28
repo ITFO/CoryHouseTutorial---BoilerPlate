@@ -6,7 +6,7 @@ export function loadCoursesSuccess(courses) {
   return { type: types.LOAD_COURSES_SUCCESS, courses };
 }
 
-export function updateCoursesSuccess(course) {
+export function updateCourseSuccess(course) {
   return { type: types.UPDATE_COURSE_SUCCESS, course };
 }
 
@@ -34,13 +34,14 @@ export function loadCourses() {
 }
 
 export function saveCourse(course) {
+  // eslint-disable-next-line no-unused-vars
   return function(dispatch, getState) {
     dispatch(beginApiCall());
     return courseApi
       .saveCourse(course)
       .then(saveCourses => {
         course.id
-          ? dispatch(updateCoursesSuccess(saveCourses))
+          ? dispatch(updateCourseSuccess(saveCourses))
           : dispatch(createCourseSuccess(saveCourses));
       })
       .catch(error => {
